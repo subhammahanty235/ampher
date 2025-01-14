@@ -9,6 +9,9 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
 
+    permissions:
+      id-token: write  # Add permission to write the id-token
+
     steps:
       - name: Checkout Code
         uses: actions/checkout@v2
@@ -20,6 +23,7 @@ jobs:
           client-secret: ${{ secrets.AZURE_CLIENT_SECRET }}
           tenant-id: ${{ secrets.AZURE_TENANT_ID }}
           subscription-id: ${{ secrets.AZURE_SUBSCRIPTION_ID }}
+          auth-type: spn  # Specify Service Principal authentication type
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v1
